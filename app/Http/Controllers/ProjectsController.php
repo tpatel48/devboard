@@ -74,7 +74,14 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $projectFillables = new Project();
+        $project = Project::find($id);
+        if($project === null){
+            return response(json_encode("No Project with this ID found."), Response::HTTP_OK);
+        }
+        $data = $request->only($projectFillables->getFillable());
+        $project->update($data);
+        return response($project->jsonSerialize(), Response::HTTP_OK);
     }
 
     /**
@@ -85,6 +92,13 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::find($id);
+        if($project === null){
+            return response(json_encode("No Project with this ID found."), Response::HTTP_OK);
+        }
+
+        $project->delete();
+
+        return response(json_encode("Project deleted."), Response::HTTP_OK);
     }
 }

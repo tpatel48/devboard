@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Project
@@ -34,6 +35,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Project extends Eloquent
 {
+    use SoftDeletes;
+
 	protected $casts = [
 		'status_id' => 'int'
 	];
